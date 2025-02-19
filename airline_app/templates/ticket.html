@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airline Management System - Add Airline</title>
+    <style>
+        /* Global styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            line-height: 1.6;
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ85LAestXqER7mk3xgaNczw9bSr5kzbnMutw&s');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            background-color: #000;
+            color: #fff;
+            padding: 10px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 15px;
+            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-right: 1px solid #fff;
+        }
+
+        .navbar a:last-child {
+            border-right: none;
+        }
+
+        .navbar a:hover {
+            background-color: #222;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar ul li {
+            margin-right: 0px;
+        }
+
+        .navbar .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .navbar .profile {
+            display: flex;
+            align-items: center;
+            color: #fff;
+        }
+
+        .navbar .profile-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        /* Main Content styles */
+        main {
+            padding-top: 80px;
+        }
+
+        .section {
+            padding: 50px 0;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .section p {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 20px;
+            color: #666;
+        }
+
+        .section-content {
+            text-align: center;
+        }
+
+        .image-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .image-grid img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button-container a, .button-container button {
+            display: inline-block;
+            background-color: #000;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .button-container a:hover, .button-container button:hover {
+            background-color: #222;
+        }
+
+        /* Form styles */
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group button {
+            background-color: #000;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-group button:hover {
+            background-color: #222;
+        }
+
+        /* Table styles */
+        .table-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table th, table td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        /* Footer styles */
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .navbar .container {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 0;
+            }
+
+            .navbar a {
+                display: block;
+                padding: 15px 0;
+                text-align: center;
+                border-right: none;
+            }
+
+            .navbar .profile {
+                margin-top: 10px;
+                text-align: center;
+            }
+
+            .navbar .profile-img {
+                margin: 0 auto;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+
+            .image-grid img {
+                width: 100%;
+            }
+
+            .form-container {
+                padding: 10px;
+            }
+
+            .form-group button {
+                width: 100%;
+            }
+
+            .table-container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<header class="navbar">
+    <div class="container">
+        <a href="#" class="logo"><img src="https://static.vecteezy.com/system/resources/thumbnails/002/409/950/small_2x/flying-airplane-silhouette-design-free-vector.jpg" alt="Logo"></a>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/airline/">Airline Management</a></li>
+                <li><a href="/flight/">Flight Management</a></li>
+                <li><a href="/passenger/">Passenger Management</a></li>
+                <li><a href="/reservation/">Reservation Management</a></li>
+                <li><a href="/ticket/">Ticket Management</a></li>
+            </ul>
+        </nav>
+        <div class="profile">
+            <img src="https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg" alt="Profile" class="profile-img">
+            <span>Welcome, User!</span>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+
+<main>
+    <section class="section">
+        <div class="container">
+            <div class="form-container">
+                <h2>Add New Ticket</h2>
+                <form id="addTicketForm">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="reservation">Reservation:</label>
+                        <select id="reservation" name="reservation" required>
+                            <option value="">Select Reservation</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="issueDate">Issue Date:</label>
+                        <input type="date" id="issueDate" name="issueDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ticketNumber">Ticket Number:</label>
+                        <input type="text" id="ticketNumber" name="ticketNumber" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fare">Fare:</label>
+                        <input type="number" id="fare" name="fare" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="paymentStatus">Payment Status:</label>
+                        <select id="paymentStatus" name="paymentStatus" required>
+                            <option value="">Select Status</option>
+                            <option value="Paid">Paid</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Failed">Failed</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" onclick="addTicket()">Add Ticket</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="button-container">
+                <button type="button" onclick="loadTickets()">View Tickets</button>
+            </div>
+
+            <div id="ticketsTableContainer" class="table-container" style="display: none;">
+                <h2>Ticket List</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Reservation ID</th>
+                            <th>Issue Date</th>
+                            <th>Ticket Number</th>
+                            <th>Fare</th>
+                            <th>Payment Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ticketsTableBody">
+                        <!-- Ticket rows will be dynamically populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2023 Airline Management System. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    // Function to populate dropdown with reservations
+    function populateReservationsDropdown() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/get_reservations/', true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    var reservations = JSON.parse(xhr.responseText);
+                    var reservationDropdown = document.getElementById('reservation');
+                    reservationDropdown.innerHTML = '';
+
+                    reservations.forEach(function (reservation) {
+                        var option = document.createElement('option');
+                        option.value = reservation.id;
+                        option.textContent = reservation.passenger_name;  // Adjust according to your Reservation model
+                        reservationDropdown.appendChild(option);
+                    });
+                } else {
+                    alert('Failed to load reservations. Please try again.');
+                }
+            }
+        };
+        xhr.send();
+    }
+
+    // Call functions to populate dropdowns on page load
+    window.onload = function () {
+        populateReservationsDropdown();
+    };
+
+    // Function to add a new ticket
+    // Function to add a new ticket
+function addTicket() {
+    var reservationId = document.getElementById('ReservationId').value;
+    var issueDate = document.getElementById('IssueDate').value;
+    var ticketNumber = document.getElementById('TicketNumber').value;
+    var fare = document.getElementById('Fare').value;
+    var paymentStatus = document.getElementById('PaymentStatus').value;
+    var csrftoken = getCookie('csrftoken');
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/add_ticket/', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('X-CSRFToken', csrftoken);
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                alert('Ticket added successfully!');
+                document.getElementById('addTicketForm').reset();
+            } else {
+                alert('Failed to add ticket. Please try again.');
+            }
+        }
+    };
+
+    var params = 'reservation_id=' + encodeURIComponent(reservationId) +
+                 '&issue_date=' + encodeURIComponent(issueDate) +
+                 '&ticket_number=' + encodeURIComponent(ticketNumber) +
+                 '&fare=' + encodeURIComponent(fare) +
+                 '&payment_status=' + encodeURIComponent(paymentStatus);
+
+    xhr.send(params);
+}
+
+// Function to load tickets
+function loadTickets() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/fetch_tickets/', true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                var tickets = JSON.parse(xhr.responseText);
+                var tableBody = document.getElementById('ticketsTableBody');
+                tableBody.innerHTML = '';
+
+                tickets.forEach(function (ticket) {
+                    var row = document.createElement('tr');
+
+                    var ticketIdCell = document.createElement('td');
+                    ticketIdCell.textContent = ticket.TicketID;
+                    row.appendChild(ticketIdCell);
+
+                    var reservationIdCell = document.createElement('td');
+                    reservationIdCell.textContent = ticket.ReservationID;
+                    row.appendChild(reservationIdCell);
+
+                    var issueDateCell = document.createElement('td');
+                    issueDateCell.textContent = ticket.IssueDate;
+                    row.appendChild(issueDateCell);
+
+                    var ticketNumberCell = document.createElement('td');
+                    ticketNumberCell.textContent = ticket.TicketNumber;
+                    row.appendChild(ticketNumberCell);
+
+                    var fareCell = document.createElement('td');
+                    fareCell.textContent = ticket.Fare;
+                    row.appendChild(fareCell);
+
+                    var paymentStatusCell = document.createElement('td');
+                    paymentStatusCell.textContent = ticket.PaymentStatus;
+                    row.appendChild(paymentStatusCell);
+
+                    tableBody.appendChild(row);
+                });
+
+                document.getElementById('ticketsTableContainer').style.display = 'block';
+            } else {
+                alert('Failed to load tickets. Please try again.');
+            }
+        }
+    };
+    xhr.send();
+}
+
+</script>
+
+</body>
+</html>
